@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.2//EN"
+"http://www.openmobilealliance.org/tech/DTD/xhtml-mobile12.dtd">
+<html>
+<head>
+<script src="/socket.io/socket.io.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<link href="http://meyerweb.com/eric/tools/css/reset/reset.css" type="text/css"/>
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<style>
+
+#container
+{
+
+	width:1024px;
+	margin-left:auto;
+	margin-right:auto;
+	height:860px;
+	background-color:lightgray;
+	
+}
+#img
+{
+	width:430px;
+	margin-left:auto;
+	margin-right:auto;
+	
+}
+
+#wrapper
+{
+
+	width:1024px;
+	margin-left:auto;
+	margin-right:auto;
+
+}
+#conversation
+{
+
+	width:600px;
+	height:650px;	
+	margin-left:auto;
+	margin-right:auto;
+	overflow-y:scroll;
+	overflow-x:hidden;
+	padding-top:10px;
+
+}
+ul
+{
+	
+	list-style-type: none;
+	width:530px;
+	height:600px;
+	margin-left:auto;
+	margin-right:auto;
+
+}
+
+li
+{
+
+	
+	width:500px;
+	margin-left:auto;
+	margin-right:auto;
+	height:100px;
+
+	border:1px solid black;
+	border-radius:5px;
+	margin-bottom:25px;
+	
+
+}
+
+.name
+{
+	float:left;
+	width:100px;
+	height:100px;
+	font-family: 'Oxygen', sans-serif;
+	color:black;
+	font-size:20px;
+
+}
+
+.name p
+{
+
+	margin-top:37px;
+	text-align:center;
+
+}
+
+.likes p
+{
+
+	margin-top:20px;
+	text-align:center;
+
+}
+
+.question
+{
+	font-weight:bold;
+	word-break:break-all;
+	vertical-align: middle;
+	width:300px;
+	height:100px;
+	float:left;
+	text-align:center;
+	font-family: 'Oxygen', sans-serif;
+	color:black;
+	font-size:20px;
+
+}
+
+.likes
+{
+
+	width:100px;  
+	float:left;
+	height:100px;
+	font-family: 'Oxygen', sans-serif;
+	color:black;
+	font-size:50px;
+
+	
+
+}
+
+
+</style>
+</head>
+<body>
+<script>
+    var URL = "http://localhost:5000";
+    var socket = io.connect(URL);
+	
+	$(document).ready(function()
+	{
+			
+			$('body').on("click",".upvote",function()
+			{
+			
+				var id = $(this).data('id');
+				socket.emit('upthevote', id);
+				
+			});
+			
+			socket.on('updatelikes', function (output) 
+			{
+				
+				$('#conversation').remove();
+				$('#con').html("<div id='conversation'>" + output + "</div>");
+				
+			});
+			
+			socket.on('updatechat', function (output) 
+			{
+			
+                $('#con').html("<div id='conversation'>" + output + "</div>");
+				
+        	});
+			
+			socket.on('remove', function (input) 
+			{
+			
+               $('li[data-id="'+ input +'"]').remove();
+			   
+        	});
+		
+	});
+</script>
+
+
+<div id="container">
+<div id="img"><img src="http://www.weareimd.be/theme/weareimd//assets/images/logo.svg" alt="logo"/></div>
+<div id ="con">
+
+</div>
+</div>
+</body>
+</html>

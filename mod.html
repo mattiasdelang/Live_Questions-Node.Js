@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.2//EN"
+"http://www.openmobilealliance.org/tech/DTD/xhtml-mobile12.dtd">
+<html>
+<head>
+<script src="/socket.io/socket.io.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<style>
+#form
+{
+
+	width:450px;
+	margin-left:auto;
+	margin-right:auto;
+
+}
+
+form
+{
+
+	margin-top:30px; 
+
+}
+
+.textarea
+{
+	font-family: 'Oxygen', sans-serif;
+	color:black;
+	font-size:23px;
+	text-align:center;
+	border:2px solid black;
+	height:30px;
+	width:400px;
+	margin-left:23px;
+	margin-bottom:20px;
+	border-radius:5px;
+
+}
+
+.datasend1
+{
+
+	margin-top:25px;
+	height:40px;
+	width:250px;
+	margin-left:100px;
+	font-family: 'Oxygen', sans-serif;
+	color:black;
+	font-size:23px;
+	background-color:lightgray;
+	border:2px solid black;
+	border-radius:5px;
+
+}
+
+
+
+</style>
+</head>
+<body>
+<div id="form">
+<img src="http://www.weareimd.be/theme/weareimd//assets/images/logo.svg" alt="logo"/>
+
+
+<script>
+    var URL = "http://localhost:5000";
+    var socket = io.connect(URL);
+
+
+	$(function()
+	{
+	
+        $('#remove').click( function() 
+		{
+		
+                var pass = $('#pass').val();
+                var input = $('#input').val();
+                socket.emit('modabuse', pass, input);
+				
+        });
+		
+		socket.on('remove', function (input)
+		{
+		
+               $('.datasend1').css('border','2px solid green');
+			   
+		});	
+		
+		socket.on('fail', function () 
+		{
+		
+               $('.datasend1').css('border','2px solid red');
+			   
+		});	
+		
+	});
+</script>
+
+<form>
+		<input type="password" id="pass" class="textarea" placeholder="password" required/>
+        <input type="text "id="input" class="textarea" placeholder="id" required />
+   
+        <input type="button" id="remove" class="datasend1" value="Send" />
+</form>
+</div>
+</body>
+</html>

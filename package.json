@@ -1,0 +1,16 @@
+{
+  "name": "imd-wall",
+  "version": "0.0.1",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "node": "~0.0.0",
+    "mysql": "^2.1.1",
+    "nodemon": "^1.0.17",
+    "socket.io": "^0.9.16",
+    "express": "^4.1.0"
+  },
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC"
+}
